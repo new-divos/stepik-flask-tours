@@ -36,6 +36,19 @@
     </nav>
   </header>
   <main class="container mt-3">
+    <!-- Должно быть удалено -->
+    <h1>Все туры:</h1>
+    <ul>
+      {% for id, tour in tours.items() %}
+      <li>
+        <a href="{{ url_for('get_tours_for_departure',
+          departure=tour.departure) }}">{{ departures[tour.departure] }}</a>:
+        {{ tour.country }} <a href="{{ url_for('get_tour', id=id) }}">{{ tour.title }} {{ tour.price }}</a>
+        {% for _ in range(tour.stars|int) %}&#9733;{% endfor %}
+      </li>
+      {% endfor %}
+    </ul>
+
     <!-- HERO -->
     <section class="jumbotron text-center mt-4">
       <h1 class="display-4">Всякие туры</h1>
