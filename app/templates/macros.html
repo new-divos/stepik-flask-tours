@@ -1,0 +1,24 @@
+{% macro render_tours(tours) %}
+    <div class="row mt-5">
+        {% for idx, tour in tours.items() %}
+            <div class="col-4 d-flex align-items-stretch">
+                <div class="card mb-4">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <img class="card-img-top embed-responsive-item"
+                             src="{{ tour.picture }}"
+                             alt="" />
+                    </div>
+                    <div class="card-body">
+                        <h2 class="h5 card-title">{{ tour.title }}</h2>
+                        <p class="card-text">{{ tour.description|truncate(100) }}</p>
+                        <a href="{{ url_for('get_tour', idx=idx) }}" class="btn btn-sm btn-primary">Подробнее</a>
+                    </div>
+                    <div class="card-footer bg-transparent font-weight-bold">
+                        {{ tour.nights|withunit('night') }}, {{ tour.price|price|safe }}
+                        <span style="float: right; clear: right">{{ tour.stars|stars|safe }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

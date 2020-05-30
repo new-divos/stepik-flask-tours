@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block main %}
+    <h1 class="display-5 mt-4">Летим из {{ name }}</h1>
+    <p class="mb-4">Найдено {{ tours|length|withunit('tour') }},
+        от {{ min_price|price|safe }} до {{ max_price|price|safe }}
+        и от {{ min_nights|withunit('night') }}
+        до {{ max_nights|withunit('night') }}</p>
+    <!-- CARDS -->
+    {{ macros.render_tours(tours) }}
+{% endblock %}

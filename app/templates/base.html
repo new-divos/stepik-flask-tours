@@ -1,0 +1,40 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block navbar %}
+    <header class="container mt-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ url_for('index') }}">{{ title }}</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% for code, text in departures.items() %}
+                        {% if code == active_code %}
+                            <li class="nav-item active">
+                        {% else %}
+                            <li class="nav-item">
+                        {% endif %}
+                        <a class="nav-link" href="{{ url_for('get_departure', code=code) }}">{{ text }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+
+{% block content %}
+    {% if mt > 0 %}<main class="container mt-{{ mt }}">{% else %}<main class="container">{% endif %}
+          {% block main %}
+          {% endblock %}
+    </main>
+{% endblock %}
