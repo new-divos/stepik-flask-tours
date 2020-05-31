@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  web:
+    image: new-divos/stepik-flask-tours/web
+
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
+
+    command: gunicorn -b 0.0.0.0:5000 manage:app --access-logfile -
+
+    environment:
+      - FLASK_APP=manage:app
+      - FLASK_ENV=production
+
+  nginx:
+    image: new-divos/stepik-flask-tours/nginx
+
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+
+    ports:
+      - 80:80
+
+    depends_on:
+      - web
